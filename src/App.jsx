@@ -2,7 +2,7 @@ import "./App.css";
 import ChatComponent from "./components/chatComponents/chatComponents";
 import Footermain from "./components/footer";
 import Header from "./components/header/header";
-import { OperatorComponent } from "./components/operatorComponents/operatorComponents";
+import { OperatorComponent } from "./components/operadoraComponents/operadoraComponents";
 import AuthProvider from "./context/AuthContext";
 
 function App() {

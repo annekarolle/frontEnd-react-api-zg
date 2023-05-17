@@ -3,7 +3,7 @@ import { AuthContext } from "../../context/AuthContext";
 import { LoadingComponent } from "../loadingComponents/loadingComponents";
 import {AiFillPlusCircle} from "react-icons/ai"
 import {BsFillTrash3Fill} from "react-icons/bs"
-import { Container } from "./operatorStyle"
+import { Container } from "./operadoraStyle"
 import { useContext, useEffect, useState } from "react";
 import api from "../../services/api";
 import operadoraService from '../../services/operadoraService';
@@ -38,7 +38,7 @@ export const OperatorComponent = () => {
     };
 
     const handleDeleteOperadora = async (operadoraId) => {
-      const confirmDelete = window.confirm("Apagar a operadora junto com todos os documentos e regras dela?");
+      const confirmDelete = window.confirm("Apagar a operadora junto com todos os documentos e regras?");
       if (confirmDelete) {
         await operadoraService.deleteOperadora(operadoraId);
         fetchOperadoras();
