@@ -3,15 +3,15 @@ import { ContainerListRender, ListStyle } from "./renderCardStyle"
 
 
 
-export const RenderCard = ({ list }) =>{   
+export const RenderCard = ({ list }) =>{
 
   return (
     <ContainerListRender className="container-list-render">
-      {list && list.length > 0 ? (
+      {list ? (
         <ListStyle>
           {list.map((item) => (
             <li key={item.id}>
-              <p>{item.nome}</p>
+              <p>{item.arquivo.nome}</p>
             </li>
           ))}
         </ListStyle>
@@ -23,5 +23,3 @@ export const RenderCard = ({ list }) =>{
     </ContainerListRender>
   );
 };
-
-

@@ -7,24 +7,25 @@ import { RenderCard } from "../renderCard/renderCard";
 import api from "../../services/api";
 
 export const ContractAnaliser = () => {
-  const [isOpen, setIsOpen] = useState(false);
-  const [isClose, setIsClose] = useState(false);
+
 
   const card = [
     { id: 1, nome: "Saúde Total" },
     { id: 2, nome: "Vida Plena" },
     { id: 3, nome: "Bem-Estar Seguro" },
     { id: 4, nome: "QualiVida" }
-  ] 
+  ]
 
   const {
+    isClose, setIsClose, isOpen, setIsOpen,
     handleAditivoFileChange,
     handleAditivoFileSubmit,
     handleSubmitRules,
     handleRulesChange,
     handleContractSubmit,
     handleContractChange,
-    rules, contractList, aditivoList, rulesList, setContractList, setAditivoList, setRulesList
+    isLoadingContratos, setIsLoadingContratos,
+    rules, contratos, aditivoList, rulesList, setContratos, setAditivoList, setRulesList
   } = useContext(AuthContext);
 
   const handleToggle = () => {
@@ -40,8 +41,8 @@ export const ContractAnaliser = () => {
   };
   const listContract = async () => {
     try {
-      const response = await api.get('URL_DA_API/listContract');
-      setContractList(response.data);
+      const response = await api.get('contratos/');
+      setContratos(response.data);
     } catch (error) {
       console.error(error);
     }
@@ -49,7 +50,7 @@ export const ContractAnaliser = () => {
 
   const listAditivo = async () => {
     try {
-      const response = await api.get('URL_DA_API/listContract');
+      const response = await api.get('aditivos/');
       setAditivoList(response.data);
     } catch (error) {
       console.error(error);
@@ -58,7 +59,7 @@ export const ContractAnaliser = () => {
 
   const listRules = async () => {
     try {
-      const response = await api.get('URL_DA_API/listContract');
+      const response = await api.get('regras/');
       setRulesList(response.data);
     } catch (error) {
       console.error(error);
@@ -82,8 +83,8 @@ export const ContractAnaliser = () => {
               handleChange={handleContractChange}
               className="contrato"
               title= 'Contrato'
-            >              
-              <RenderCard list={card}/>
+            >
+              <RenderCard list={contratos}/>
             </SubmitComponents>
 
             <SubmitComponents
@@ -104,7 +105,7 @@ export const ContractAnaliser = () => {
             >
               <RenderCard list={rulesList}/>
             </SubmitComponents>
-          
+
           </div>
 
           <div className="close-button-container">
