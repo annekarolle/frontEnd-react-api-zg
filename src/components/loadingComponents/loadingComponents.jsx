@@ -2,6 +2,7 @@
 import { ContainerLoad } from "./loadingStyle";
 import React from "react";
 import {  motion } from "framer-motion";
+import { LoadingWord } from "../loadingWord/loadingWord";
 
 
 export const LoadingComponent = () => {
@@ -40,22 +41,9 @@ export const LoadingComponent = () => {
               repeatDelay: 1
             }}
           />
+          
         </div>
-      <motion.span
-          style={{ display: "inline-block" }}
-          initial="hidden"
-          animate="visible"
-        >
-          {Array.from("Carregando...").map((letter, index) => (
-            <motion.span
-              key={index}
-              variants={letterVariants}
-              transition={{ delay: index * 0.1, duration: 1, loop: Infinity }} 
-            >
-              {letter}
-            </motion.span>
-          ))}
-        </motion.span>
+        <LoadingWord size="12px" word={"Carregando operadoras..."}/>
       
       </ContainerLoad>
     </>

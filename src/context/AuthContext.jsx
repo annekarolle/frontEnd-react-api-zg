@@ -11,6 +11,10 @@ const AuthProvider = ({ children }) => {
   const [rules, setRules] = useState("");
   const [aditivoFile, setAditivoFile] = useState(null);
 
+  const [contractList , setContractList] = useState([]);
+  const [aditivoList, setAditivoList] = useState([]);
+  const [rulesList, setRulesList] = useState([]);
+
   const handleAditivoFileChange = (event) => {
     const selectedFile = event.target.files[0];
     setAditivoFile(selectedFile);
@@ -52,6 +56,8 @@ const AuthProvider = ({ children }) => {
     setContractFile(selectedFile);
   };
 
+ 
+  
   return (
     <AuthContext.Provider
       value={{
@@ -63,7 +69,8 @@ const AuthProvider = ({ children }) => {
         handleSubmitRules,
         handleRulesChange,
         handleContractSubmit,
-        handleContractChange,  rules, setRules,  aditivoFile, setAditivoFile, contractFile, setContractFile
+        handleContractChange,  rules, setRules,  aditivoFile, setAditivoFile, contractFile, setContractFile,
+        contractList, aditivoList, rulesList, setContractList, setAditivoList, setRulesList
       }}
     >
       {children}

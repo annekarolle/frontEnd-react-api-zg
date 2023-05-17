@@ -81,7 +81,7 @@ export const OperatorComponent = () => {
         <Container>
         <h3>Operadoras:</h3>
       
-        {planosDeSaude ? 
+        {planosDeSaude && planosDeSaude.length > 0 ? 
         (<ul>
          {planosDeSaude.map((operadora) => (
             <li key={operadora.nome}> 

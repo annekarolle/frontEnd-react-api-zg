@@ -33,7 +33,7 @@ export const SubmitComponents = ({
                     <button
                       onClick={(event) => {
                         event.preventDefault();
-                        setRuleName("");
+                        setRuleName("");                        
                       }}
                     >
                       <AiFillCloseCircle />
@@ -41,8 +41,8 @@ export const SubmitComponents = ({
                   </>
                 ) : null}
               </div>
-            </form>           
-          {children}        
+            </form>          
+             
 
             </>
           ) : (
@@ -76,8 +76,11 @@ export const SubmitComponents = ({
             </form>
             
           )} 
+          <div className="lista-cotainer">
           <h4>Lista de {title}</h4>
-           {children}      
+           {children}
+          </div> 
+               
         </div>
       </Container>
     </>

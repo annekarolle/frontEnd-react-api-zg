@@ -1,9 +1,10 @@
-import { useContext, useState } from "react";
+import { useContext, useEffect, useState } from "react";
 import { ContractContainer } from "./contractAnaliserStyle";
 import { BsArrowDownCircle, BsArrowUpCircle } from "react-icons/bs";
 import { AuthContext } from "../../context/AuthContext";
 import { SubmitComponents } from "../submitComponents/submitComponents";
 import { RenderCard } from "../renderCard/renderCard";
+import api from "../../services/api";
 
 export const ContractAnaliser = () => {
   const [isOpen, setIsOpen] = useState(false);
@@ -23,7 +24,7 @@ export const ContractAnaliser = () => {
     handleRulesChange,
     handleContractSubmit,
     handleContractChange,
-    rules,
+    rules, contractList, aditivoList, rulesList, setContractList, setAditivoList, setRulesList
   } = useContext(AuthContext);
 
   const handleToggle = () => {
@@ -37,6 +38,39 @@ export const ContractAnaliser = () => {
       setIsOpen(true);
     }
   };
+  const listContract = async () => {
+    try {
+      const response = await api.get('URL_DA_API/listContract');
+      setContractList(response.data);
+    } catch (error) {
+      console.error(error);
+    }
+  };
+
+  const listAditivo = async () => {
+    try {
+      const response = await api.get('URL_DA_API/listContract');
+      setAditivoList(response.data);
+    } catch (error) {
+      console.error(error);
+    }
+  };
+
+  const listRules = async () => {
+    try {
+      const response = await api.get('URL_DA_API/listContract');
+      setRulesList(response.data);
+    } catch (error) {
+      console.error(error);
+    }
+  };
+
+
+  useEffect(() => {
+    listContract();
+    listAditivo();
+    listRules();
+  }, []);
 
   return (
     <ContractContainer>
@@ -58,7 +92,7 @@ export const ContractAnaliser = () => {
               className="aditivo"
               title= 'Aditivo'
             >
-              
+               <RenderCard list={aditivoList}/>
             </SubmitComponents>
 
             <SubmitComponents
@@ -68,7 +102,7 @@ export const ContractAnaliser = () => {
               rule={rules}
               title= 'Regras'
             >
-              
+              <RenderCard list={rulesList}/>
             </SubmitComponents>
           
           </div>

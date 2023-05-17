@@ -129,5 +129,19 @@ text-align: left;
 h4{
   color: var(--color-green);
 }
+
+
+.lista-cotainer{
+  display: flex;
+  flex-direction: column;
+  align-items: left;
+  align-items: flex-start;
+  width: 100%;
+  
+}
+
+.lista-cotainer h4{
+  padding-left: 10px;
+}
 `
  
