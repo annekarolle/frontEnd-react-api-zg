@@ -82,7 +82,7 @@ export const ContractAnaliser = () => {
               handleSubmit={handleContractSubmit}
               handleChange={handleContractChange}
               className="contrato"
-              title= 'Contrato'
+              title= 'Contratos'
             >
               <RenderCard list={contratos}/>
             </SubmitComponents>
@@ -91,7 +91,7 @@ export const ContractAnaliser = () => {
               handleSubmit={handleAditivoFileSubmit}
               handleChange={handleAditivoFileChange}
               className="aditivo"
-              title= 'Aditivo'
+              title= 'Aditivos'
             >
                <RenderCard list={aditivoList}/>
             </SubmitComponents>

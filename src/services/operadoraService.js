@@ -1,14 +1,8 @@
 import axios from 'axios';
+import genericService from './genericService';
 
 const operadoraService = {
-  getOperadoras: async () => {
-    try {
-      const response = await axios.get('/api/operadoras/');
-      return response.data;
-    } catch (error) {
-      throw error;
-    }
-  },
+  ...genericService('operadoras'),
   getContratosByOperadora: async (operadoraId) => {
     try {
       const response = await axios.get(`/api/operadoras/contratos/${operadoraId}/`);
@@ -17,22 +11,6 @@ const operadoraService = {
       throw error;
     }
   },
-  createOperadora: async (operadora) => {
-    try {
-      const response = await axios.post('/api/operadoras/', operadora);
-      return response.data;
-    } catch (error) {
-      throw error;
-    }
-  },
-  deleteOperadora: async (operadoraId) => {
-    try {
-      const response = await axios.delete(`/api/operadoras/${operadoraId}`);
-      return response.data;
-    } catch (error) {
-      throw error;
-    }
-  }
 };
 
 export default operadoraService;

@@ -29,7 +29,7 @@ export const OperatorComponent = () => {
 
     const fetchOperadoras = async () => {
         try {
-          const data = await operadoraService.getOperadoras();
+          const data = await operadoraService.getAll();
           setOperadoras(data);
           setIsLoadingOperadoras(false);
         } catch (error) {
@@ -40,7 +40,7 @@ export const OperatorComponent = () => {
     const handleDeleteOperadora = async (operadoraId) => {
       const confirmDelete = window.confirm("Apagar a operadora junto com todos os documentos e regras?");
       if (confirmDelete) {
-        await operadoraService.deleteOperadora(operadoraId);
+        await operadoraService.delete(operadoraId);
         fetchOperadoras();
       }
     };
@@ -71,7 +71,7 @@ export const OperatorComponent = () => {
        }
        try {
         const novaOperadora = {nome: nomeOperadora.trim(), cliente: 'Cliente 1'}
-        const data = await operadoraService.createOperadora(novaOperadora);
+        const data = await operadoraService.create(novaOperadora);
         setNomeOperadora('');
         setErro(null);
         fetchOperadoras()
