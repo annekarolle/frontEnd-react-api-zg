@@ -50,30 +50,14 @@ margin-bottom: 2em;
   align-items: center;
   flex-direction: row;
   justify-content: space-between;
-  margin-top: 0;
+  margin-top: 1em;
 }
 
  .class-container.contrato input,  .class-container.aditivo input{
 display: none;
  }
 
- .class-container.contrato label,  .class-container.aditivo label{
-  background-color: var(--color-dark-grey);
-  outline: 1px solid var(--color-light-grey);
-  padding: 5px;
-  color: var(--color-white);
-
- }
-
-
- .class-container.contrato label:hover,  .class-container.aditivo label:hover{
-  background-color: var(--color-light-grey);
-  outline: 1px solid var(--color-light-grey);
-  padding: 5px;
-  color: var(--color-white);
-
- }
-
+ 
  .class-container.regras{
     align-items: left;
     text-align: left;
@@ -98,13 +82,13 @@ display: none;
   width: 80%; 
  }
 
- .class-container.regras button, .class-container.contrato button, .class-container.aditivo button{
+ .class-container.regras button, label, .class-container.contrato button, label, .class-container.aditivo button{
   color: var(--color-green);
   font-size: 25px;
- 
+  cursor: pointer;
  }
 
- .class-container.contrato button:hover,  .class-container.aditivo button:hover{
+ .class-container.contrato button:hover, label:hover,  .class-container.aditivo button:hover, label:hover{
     transform: scale(1.05);
     cursor: pointer;
  }
@@ -117,6 +101,8 @@ display: none;
     margin-top: 5px;
     cursor: pointer;
  }
+
+
 
  .class-container::-webkit-scrollbar {
   width: 10px;

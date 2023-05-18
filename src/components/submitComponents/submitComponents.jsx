@@ -1,7 +1,7 @@
 import { useState } from "react";
 import { Container } from "./submitComponentsStyle";
-import { AiFillCloseCircle } from "react-icons/ai";
-import {AiFillPlusCircle} from "react-icons/ai"
+import { AiFillCloseCircle, AiFillPlusCircle } from "react-icons/ai";
+import {BsFillArrowRightCircleFill} from "react-icons/bs"
 
 export const SubmitComponents = ({
   handleSubmit,
@@ -58,7 +58,7 @@ export const SubmitComponents = ({
                     <form onSubmit={handleSubmit}>
                           <h3>{title}</h3>        
                      <div className="container-intermediario">
-                     <label htmlFor={className}>Selecionar arquivo...</label>
+                     <label htmlFor={className}><AiFillPlusCircle/></label>
                         <input
                           type="file"
                           name={className}
@@ -68,8 +68,7 @@ export const SubmitComponents = ({
                             setFileName(event.target.value);
                           }}                                                
                         />
-                        <button type="submit"  > 
-                        <AiFillPlusCircle/></button>
+                        
                      </div>
                       </form>
              
@@ -85,6 +84,8 @@ export const SubmitComponents = ({
                                 >
                                   <AiFillCloseCircle />
                                 </button>
+                                <button type="submit" className="btn-submit" > 
+                        <BsFillArrowRightCircleFill/></button>
                               </>
                             ) : <p>Nenhuma arquivo selecionado...</p>}
                          </div>
