@@ -18,38 +18,94 @@ margin-bottom: 2em;
    
  }
 
+ .class-container h3{
+  margin: 0;
+ }
+
+ .container-input-button{
+  display: flex;
+  flex-direction: row;
+
+ }
+
+.class-container.contrato,  .class-container.aditivo{
+  display: flex;
+  align-items: center;
+  flex-direction: column;
+ 
+
+}
+
+.container-intermediario{
+  display: flex;
+  flex-direction: row;
+  width: 100%;
+  justify-content: flex-end;
+  align-items: center;
+}
+
+ .class-container.contrato form,  .class-container.aditivo form{
+  display: flex;
+  width: 90%; 
+  align-items: center;
+  flex-direction: row;
+  justify-content: space-between;
+  margin-top: 0;
+}
+
  .class-container.contrato input,  .class-container.aditivo input{
 display: none;
  }
 
  .class-container.contrato label,  .class-container.aditivo label{
-  padding: 5px;    
-  color: var(--color-white);  
-    background-color :var(--color-light-grey); 
-    border: 2px solid var(--color-light-grey);
-    box-shadow: 0px 0px 2px rgba(0, 0, 0, 1), 0px 2px 4px rgba(0, 0, 0, 1) inset;
-    text-align: center;   
-    margin-top: 5px;
-    cursor: pointer;
+  background-color: var(--color-dark-grey);
+  outline: 1px solid var(--color-light-grey);
+  padding: 5px;
+  color: var(--color-white);
+
  }
 
- .class-container.regras input{
-  padding: 10px;    
-  color: var(--color-white);  
-    background-color :var(--color-light-grey); 
-    border: 2px solid var(--color-light-grey);
-    box-shadow: 0px 0px 2px rgba(0, 0, 0, 1), 0px 2px 4px rgba(0, 0, 0, 1) inset;
-    text-align: left;   
-    margin-top: 5px;   
- }
 
  .class-container.contrato label:hover,  .class-container.aditivo label:hover{
-  padding: 5px;    
-  color: var(--color-white);  
-    background-color :var(--color-grey); 
-    border: 2px solid var(--color-grey);    
-    text-align: center;   
-    margin-top: 5px;
+  background-color: var(--color-light-grey);
+  outline: 1px solid var(--color-light-grey);
+  padding: 5px;
+  color: var(--color-white);
+
+ }
+
+ .class-container.regras{
+    align-items: left;
+    text-align: left;
+
+ }
+ .class-container.regras form{
+  display: flex;
+  width: 100%;
+  justify-content: center;  
+ }
+
+ .class-container.regras h3{
+  margin-right: 1em;
+  margin-left: 1em;
+  margin-top: 0;
+ }
+ .class-container.regras input{
+  background-color: var(--color-dark-grey);
+  outline: 1px solid var(--color-light-grey);
+  padding: 5px;
+  color: var(--color-white);
+  width: 80%; 
+ }
+
+ .class-container.regras button, .class-container.contrato button, .class-container.aditivo button{
+  color: var(--color-green);
+  font-size: 25px;
+ 
+ }
+
+ .class-container.contrato button:hover,  .class-container.aditivo button:hover{
+    transform: scale(1.05);
     cursor: pointer;
  }
 
@@ -94,7 +150,6 @@ margin-top: 0.5em;
   flex-direction: row;
   width: 100%;
   justify-content: center;
-  margin-top: 1em;
   align-items: center;
 
 }
