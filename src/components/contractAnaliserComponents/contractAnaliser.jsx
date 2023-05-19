@@ -5,16 +5,12 @@ import { AuthContext } from "../../context/AuthContext";
 import { SubmitComponents } from "../submitComponents/submitComponents";
 import { RenderCard } from "../renderCard/renderCard";
 import api from "../../services/api";
+import contratoService from '../../services/contratoService';
+import aditivoService from '../../services/aditivoService';
+import regraService from '../../services/regraService';
+
 
 export const ContractAnaliser = () => {
-
-
-  const card = [
-    { id: 1, nome: "Saúde Total" },
-    { id: 2, nome: "Vida Plena" },
-    { id: 3, nome: "Bem-Estar Seguro" },
-    { id: 4, nome: "QualiVida" }
-  ]
 
   const {
     isClose, setIsClose, isOpen, setIsOpen,
@@ -24,54 +20,55 @@ export const ContractAnaliser = () => {
     handleRulesChange,
     handleContractSubmit,
     handleContractChange,
+    contrato, setContrato,
+    nomeArquivo, setNomeArquivo, conteudo_base64, setConteudo_base64,
+    arquivo, setArquivo,
     isLoadingContratos, setIsLoadingContratos,
-    rules, contratos, aditivoList, rulesList, setContratos, setAditivoList, setRulesList
+    rules, contratos, aditivoList, rulesList, setContratos, setAditivoList, setRulesList,
+    operadoraSelecionada
   } = useContext(AuthContext);
 
-  const handleToggle = () => {
-    if (isOpen) {
-      setIsClose(true);
-      setTimeout(() => {
-        setIsOpen(false);
-        setIsClose(false);
-      }, 500);
-    } else {
-      setIsOpen(true);
-    }
-  };
-  const listContract = async () => {
-    try {
-      const response = await api.get('contratos/');
-      setContratos(response.data);
-    } catch (error) {
-      console.error(error);
-    }
+  const handleCloseToggle = () => {
+    setIsClose(true);
+    setTimeout(() => {
+      setIsOpen(false);
+      setIsClose(false);
+    }, 500);
   };
 
-  const listAditivo = async () => {
-    try {
-      const response = await api.get('aditivos/');
-      setAditivoList(response.data);
-    } catch (error) {
-      console.error(error);
-    }
-  };
-
-  const listRules = async () => {
-    try {
-      const response = await api.get('regras/');
-      setRulesList(response.data);
-    } catch (error) {
-      console.error(error);
-    }
+  const handleOpenToggle = () => {
+    setIsOpen(true);
   };
 
 
-  useEffect(() => {
-    listContract();
-    listAditivo();
-    listRules();
-  }, []);
+  const montarArquivo = (event) => {
+    return new Promise((resolve, reject) => {
+      const file = event.target.files[0];
+      const nomeArquivo = file.name;
+      const reader = new FileReader();
+      reader.onload = (e) => {
+        const fileContent = e.target.result;
+        const base64Content = btoa(fileContent);
+        const arquivo = { nome: nomeArquivo, conteudo_base64: base64Content, tipo: 'ignorar' };
+        resolve(arquivo);
+      };
+      reader.onerror = (error) => {
+        reject(error);
+      };
+      reader.readAsBinaryString(file);
+    });
+  };
+
+  const montarContrato = async (event) => {
+    const arquivoMontado = await montarArquivo(event);
+    if (arquivoMontado) {
+      const contratoParaSalvar = {cliente: 'Cliente 1',
+                  operadora: operadoraSelecionada,
+                  arquivo: arquivoMontado};
+      setContrato(contratoParaSalvar);
+    }
+  };
+
 
   return (
     <ContractContainer>
@@ -81,6 +78,7 @@ export const ContractAnaliser = () => {
             <SubmitComponents
               handleSubmit={handleContractSubmit}
               handleChange={handleContractChange}
+              handleFileChange={montarContrato}
               className="contrato"
               title= 'Contratos'
             >
@@ -109,7 +107,7 @@ export const ContractAnaliser = () => {
           </div>
 
           <div className="close-button-container">
-            <button onClick={handleToggle} className="close-button">
+            <button onClick={handleCloseToggle} className="close-button">
               <span>
                 <BsArrowUpCircle />
               </span>
@@ -119,7 +117,7 @@ export const ContractAnaliser = () => {
       )}
 
       <div className="open-button-container">
-        <button onClick={handleToggle} className="open-button">
+        <button onClick={handleOpenToggle} className="open-button">
           <span>
             <BsArrowDownCircle />
           </span>

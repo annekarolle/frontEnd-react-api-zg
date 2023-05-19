@@ -1,5 +1,8 @@
 import { LoadingWord } from "../loadingWord/loadingWord"
 import { ContainerListRender, ListStyle } from "./renderCardStyle"
+import {BsFillTrash3Fill} from "react-icons/bs"
+
+
 
 
 
@@ -12,6 +15,14 @@ export const RenderCard = ({ list }) =>{
           {list.map((item) => (
             <li key={item.id}>
               <p>{item.arquivo.nome}</p>
+              <button
+
+                onClick={(event) => {
+                  event.preventDefault();
+                }}
+              >
+                <BsFillTrash3Fill className="botao-apagar"/>
+              </button>
             </li>
           ))}
         </ListStyle>

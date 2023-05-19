@@ -1,5 +1,8 @@
 import api from "../services/api";
-import { createContext, useState } from "react";
+import contratoService from "../services/contratoService";
+import aditivoService from "../services/aditivoService";
+import regraService from "../services/regraService";
+import { createContext, useState, useEffect } from "react";
 
 export const AuthContext = createContext();
 
@@ -18,8 +21,57 @@ const AuthProvider = ({ children }) => {
   const [aditivoFile, setAditivoFile] = useState(null);
 
   const [contractList , setContractList] = useState([]);
+  const [contrato, setContrato] = useState([]);
   const [aditivoList, setAditivoList] = useState([]);
   const [rulesList, setRulesList] = useState([]);
+
+  const [nomeArquivo, setNomeArquivo] = useState("");
+  const [conteudo_base64, setConteudo_base64] = useState("");
+
+  useEffect(() => {
+    handleContractChange();
+  }, [contrato]);
+
+  useEffect(() => {
+    fetchContratos();
+    fetchAditivos();
+    fetchRegras();
+  }, [operadoraSelecionada]);
+
+  const fetchContratos = async () => {
+    if (operadoraSelecionada) {
+      try {
+        setIsLoadingContratos(true);
+        const data = await contratoService.getAllByOperadora(operadoraSelecionada);
+        setContratos(data);
+        setIsLoadingContratos(false);
+      } catch (error) {
+        console.error('Erro ao buscar contratos:', error);
+      }
+    }
+  };
+
+  const fetchAditivos = async () => {
+    if (operadoraSelecionada) {
+      try {
+        const data = await aditivoService.getAllByOperadora(operadoraSelecionada);
+        setAditivoList(data);
+      } catch (error) {
+        console.error('Erro ao buscar aditivos:', error);
+      }
+    }
+  };
+
+  const fetchRegras = async () => {
+    if (operadoraSelecionada) {
+      try {
+        const data = await regraService.getAllByOperadora(operadoraSelecionada);
+        setRulesList(data);
+      } catch (error) {
+        console.error('Erro ao buscar regras:', error);
+      }
+    }
+  };
 
   const handleAditivoFileChange = (event) => {
     const selectedFile = event.target.files[0];
@@ -48,18 +100,19 @@ const AuthProvider = ({ children }) => {
   };
 
   const handleContractSubmit = () => {
-    const formData = new FormData();
-    formData.append("file", contractFile);
-
-    api
-      .post("URL_DO_SERVIDOR", formData)
-      .then((response) => {})
-      .catch((error) => {});
+    contratoService.create(contrato)
   };
 
-  const handleContractChange = (event) => {
-    const selectedFile = event.target.files[0];
-    setContractFile(selectedFile);
+  const handleContractChange = async () => {
+    if (contrato) {
+      try {
+        const contratoSalvo = await contratoService.create(contrato);
+        fetchContratos()
+      } catch (error) {
+        console.error('Erro ao salvar contratos:', error);
+      }
+
+    }
   };
 
 
@@ -73,6 +126,9 @@ const AuthProvider = ({ children }) => {
         setOperadoraSelecionada, operadoraSelecionada,
         contratos, setContratos,
         isLoadingContratos, setIsLoadingContratos,
+        nomeArquivo, setNomeArquivo,
+        conteudo_base64, setConteudo_base64,
+        contrato, setContrato,
         handleAditivoFileChange,
         handleAditivoFileSubmit,
         handleSubmitRules,

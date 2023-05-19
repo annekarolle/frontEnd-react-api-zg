@@ -33,7 +33,15 @@ const genericService = (resource) => {
       } catch (error) {
         throw error;
       }
-    }
+    },
+    getAllByOperadora: async (operadoraId) => {
+      try {
+        const response = await axios.get(`/api/operadoras/${resource}/${operadoraId}/`);
+        return response.data;
+      } catch (error) {
+        throw error;
+      }
+    },
   };
 };
 

@@ -9,13 +9,13 @@ margin-bottom: 2em;
 
 .class-container{
     width: 100%;
-    height: 200px;   
-    gap: 1em;  
+    height: 200px;
+    gap: 1em;
     border: 2px solid var(--color-light-grey);
     box-shadow: 0px 0px 2px rgba(0, 0, 0, 1), 0px 2px 4px rgba(0, 0, 0, 1) inset;
-    margin: 1em;   
+    margin: 1em;
     overflow: auto;
-   
+
  }
 
  .class-container h3{
@@ -32,7 +32,7 @@ margin-bottom: 2em;
   display: flex;
   align-items: center;
   flex-direction: column;
- 
+
 
 }
 
@@ -46,7 +46,7 @@ margin-bottom: 2em;
 
  .class-container.contrato form,  .class-container.aditivo form{
   display: flex;
-  width: 90%; 
+  width: 90%;
   align-items: center;
   flex-direction: row;
   justify-content: space-between;
@@ -57,7 +57,7 @@ margin-bottom: 2em;
 display: none;
  }
 
- 
+
  .class-container.regras{
     align-items: left;
     text-align: left;
@@ -66,7 +66,7 @@ display: none;
  .class-container.regras form{
   display: flex;
   width: 100%;
-  justify-content: center;  
+  justify-content: center;
  }
 
  .class-container.regras h3{
@@ -79,7 +79,7 @@ display: none;
   outline: 1px solid var(--color-light-grey);
   padding: 5px;
   color: var(--color-white);
-  width: 80%; 
+  width: 80%;
  }
 
  .class-container.regras button, label, .class-container.contrato button, label, .class-container.aditivo button{
@@ -94,10 +94,10 @@ display: none;
  }
 
  .class-container.contrato button,  .class-container.aditivo button{
-  padding: 5px;    
-    color: var(--color-green);  
-   
-    text-align: center;   
+  padding: 5px;
+    color: var(--color-green);
+
+    text-align: center;
     margin-top: 5px;
     cursor: pointer;
  }
@@ -111,14 +111,14 @@ display: none;
 .class-container::-webkit-scrollbar-track {
     background: var(--color-dark-grey);
       border-radius: 0.3rem;
-      
+
 }
 
 .class-container::-webkit-scrollbar-thumb {
     background: var(--color-grey);
     border-radius: 0.3rem;
     border: 1px solid var(--color-green);
-  
+
 }
 
 .class-container::-webkit-scrollbar-thumb:hover {
@@ -152,7 +152,7 @@ margin-top: 0.5em;
   width: 100%;
   justify-content: center;
   margin-top: 1em;
-  align-items: center; 
+  align-items: center;
 }
 
 
@@ -160,7 +160,7 @@ ul{
   display: flex;
   width: 100%;
   align-items: left;
-  
+
 }
 
 li{
@@ -178,11 +178,10 @@ h4{
   align-items: left;
   align-items: flex-start;
   width: 100%;
-  
+
 }
 
 .lista-cotainer h4{
   padding-left: 10px;
 }
 `
- 

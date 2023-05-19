@@ -12,7 +12,7 @@ import operadoraService from '../../services/operadoraService';
 export const OperatorComponent = () => {
 
     // const {operadoraList} = useContext(AuthContext);
-    const { isLoadingContratos, setIsLoadingContratos,contratos, setContratos ,setOperadoraSelecionada, operadoraSelecionada, setOperadoras, operadoras, isLoadingOperadoras, setIsLoadingOperadoras, isClose, setIsClose , isOpen, setIsOpen} = useContext(AuthContext)
+    const { isLoadingContratos, setIsLoadingContratos,contratos, setContratos ,setOperadoraSelecionada, operadoraSelecionada, setOperadoras, operadoras, isLoadingOperadoras, setIsLoadingOperadoras, isClose, setIsClose, isOpen, setIsOpen} = useContext(AuthContext)
     const [isFormOpen, setIsFormOpen] = useState(false);
     const [nomeOperadora, setNomeOperadora] = useState('');
     const [erro, setErro] = useState('');
@@ -33,7 +33,7 @@ export const OperatorComponent = () => {
           setOperadoras(data);
           setIsLoadingOperadoras(false);
         } catch (error) {
-          console.error('Erro ao buscar exemplos:', error);
+          console.error('Erro ao buscar operadoras:', error);
         }
     };
 
@@ -42,24 +42,15 @@ export const OperatorComponent = () => {
       if (confirmDelete) {
         await operadoraService.delete(operadoraId);
         fetchOperadoras();
-      }
-    };
-
-    const fetchContratosByOperadora = async (operadoraId) => {
-      try {
-        setIsLoadingContratos(true);
-        const data = await operadoraService.getContratosByOperadora(operadoraId);
-        setContratos(data);
-        setIsLoadingContratos(false);
-        fetchOperadoras();
-      } catch (error) {
-        console.error('Erro ao buscar contratos:', error);
+        if (operadoraId === operadoraSelecionada) {
+          setIsClose(true)
+        }
       }
     };
 
     const handleOperadoraClick = (operadoraId) => {
        setOperadoraSelecionada(operadoraId);
-       fetchContratosByOperadora(operadoraId);
+       setIsClose(false)
        setIsOpen(true)
      };
 
@@ -74,10 +65,11 @@ export const OperatorComponent = () => {
         const data = await operadoraService.create(novaOperadora);
         setNomeOperadora('');
         setErro(null);
-        fetchOperadoras()
-        const operadoraId = data.id
-        setOperadoraSelecionada(operadoraId)
-        fetchContratosByOperadora(operadoraId);
+        fetchOperadoras();
+        const operadoraId = data.id;
+        setOperadoraSelecionada(operadoraId);
+        setIsClose(false)
+        setIsOpen(true)
       } catch (error) {
         if (error.response && error.response.data) {
           const erroDetail = Object.entries(error.response.data)

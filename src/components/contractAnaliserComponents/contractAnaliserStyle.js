@@ -1,6 +1,6 @@
 import { styled } from "styled-components";
 
-export const ContractContainer = styled.div` 
+export const ContractContainer = styled.div`
  display: flex;
  flex-direction: row;
  width: 100%;
@@ -18,7 +18,7 @@ export const ContractContainer = styled.div`
     justify-content: center;
  }
 
- 
+
 
 .overlay-class-container{
     display: flex;
@@ -27,26 +27,26 @@ export const ContractContainer = styled.div`
 }
 
 .overlay-container {
-  position: fixed; 
+  position: fixed;
   width: 80%;
   height: 300px;
   background-color: var(--color-dark);
   box-shadow: -1px 12px 7px -7px rgba(0,0,0,0.75);
   -webkit-box-shadow: -1px 12px 7px -7px rgba(0,0,0,0.75);
   -moz-box-shadow: -1px 12px 7px -7px rgba(0,0,0,0.75);
-  display: flex; 
+  display: flex;
   flex-direction: column;
   justify-content: center;
   align-items: center;
   overflow: hidden;
-  animation: openCloseAnimation 0.5s ease-in-out forwards; 
+  animation: openCloseAnimation 0.5s ease-in-out forwards;
 }
 
 .close-button-container{
     display: flex;
     width: 100%;
     height: 10px;
-    justify-content: center;  
+    justify-content: center;
     margin-bottom : 1em;
 }
 
@@ -78,7 +78,7 @@ export const ContractContainer = styled.div`
 
 
 
-.close-button {  
+.close-button {
 animation: slideUpAnimation 0.5s ease-in-out forwards;
 }
 
