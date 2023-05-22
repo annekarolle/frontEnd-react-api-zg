@@ -12,7 +12,7 @@ const genericService = (resource) => {
     },
     get: async (itemId) => {
       try {
-        const response = await axios.get(`/api/${resource}/${itemId}`);
+        const response = await axios.get(`/api/${resource}/${itemId}/`);
         return response.data;
       } catch (error) {
         throw error;
@@ -28,7 +28,7 @@ const genericService = (resource) => {
     },
     delete: async (itemId) => {
       try {
-        const response = await axios.delete(`/api/${resource}/${itemId}`);
+        const response = await axios.delete(`/api/${resource}/${itemId}/`);
         return response.data;
       } catch (error) {
         throw error;
@@ -37,6 +37,15 @@ const genericService = (resource) => {
     getAllByOperadora: async (operadoraId) => {
       try {
         const response = await axios.get(`/api/operadoras/${resource}/${operadoraId}/`);
+        return response.data;
+      } catch (error) {
+        throw error;
+      }
+    },
+
+    getAllByContrato: async (contratoId) => {
+      try {
+        const response = await axios.get(`/api/contrato/${resource}/${contratoId}/`);
         return response.data;
       } catch (error) {
         throw error;

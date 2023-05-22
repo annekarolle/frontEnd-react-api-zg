@@ -15,7 +15,7 @@ display: flex;
 flex-direction: row;
 justify-content: space-between;
 width: 100%;
-height: 10vh;
+height: 3vh;
 align-content: center;
 align-items: center;
 margin: 1em 2em;
@@ -24,15 +24,15 @@ margin: 1em 2em;
 
 
 img{
-    width: 10em;  
-    
+    width: 10em;
+
 }
 
-   
+
 
     @media (max-width: 400px) {
         height: 10vh;
-      
+
     .navegador{
         flex-direction: column;
     }
@@ -41,9 +41,9 @@ img{
         width: 10em;
     }
 
-    
 
-   
+
+
 }
 
 `

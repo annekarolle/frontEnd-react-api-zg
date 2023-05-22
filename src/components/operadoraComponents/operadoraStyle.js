@@ -47,7 +47,7 @@ text-align: left;
   padding: 5px;
   color: var(--color-white);
   width: 90%;
-
+  margin-right: 10px;
 }
 
 .cadastroOperadora button{
@@ -96,7 +96,7 @@ li button:hover{
 
 .selecionado {
   font-weight: bold;
-  background-color: var(--color-light-grey);
+  background-color: var(--color-grey);
   color: var(--color-green);
   /* font-weight: 900; */
 }
@@ -141,7 +141,7 @@ button{
 
 
 li:hover{
-    transform: scale(1.01);
+    transform: scale(1.03);
 
 }
 

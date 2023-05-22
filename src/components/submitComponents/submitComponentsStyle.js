@@ -18,22 +18,13 @@ margin-bottom: 2em;
 
  }
 
- .class-container h3{
-  margin: 0;
- }
 
- .container-input-button{
-  display: flex;
-  flex-direction: row;
 
- }
 
-.class-container.contrato,  .class-container.aditivo{
+.class-container.contrato,  .class-container.aditivo,  .class-container.regra {
   display: flex;
   align-items: center;
   flex-direction: column;
-
-
 }
 
 .container-intermediario{
@@ -41,68 +32,57 @@ margin-bottom: 2em;
   flex-direction: row;
   width: 100%;
   justify-content: flex-end;
-  align-items: center;
 }
 
- .class-container.contrato form,  .class-container.aditivo form{
+.add-button {
+  color: var(--color-green);
+}
+
+ .class-container.contrato form,  .class-container.aditivo form,  .class-container.regra form{
   display: flex;
   width: 90%;
   align-items: center;
   flex-direction: row;
   justify-content: space-between;
-  margin-top: 1em;
 }
 
  .class-container.contrato input,  .class-container.aditivo input{
-display: none;
+   display: none;
  }
 
-
- .class-container.regras{
-    align-items: left;
-    text-align: left;
-
- }
- .class-container.regras form{
-  display: flex;
-  width: 100%;
-  justify-content: center;
- }
-
- .class-container.regras h3{
-  margin-right: 1em;
-  margin-left: 1em;
-  margin-top: 0;
- }
- .class-container.regras input{
+ .class-container.regra input{
   background-color: var(--color-dark-grey);
   outline: 1px solid var(--color-light-grey);
   padding: 5px;
+  flex-grow: 1;
+  flex-basis: 0;
+  margin-left: 10px;
+  margin-right: 10px;
   color: var(--color-white);
-  width: 80%;
  }
 
- .class-container.regras button, label, .class-container.contrato button, label, .class-container.aditivo button{
+ .class-container.contrato li:hover {
+     transform: scale(1.03);
+     cursor: pointer;
+ }
+
+ .class-container.regra label, .class-container.contrato label, .class-container.aditivo label{
   color: var(--color-green);
   font-size: 25px;
   cursor: pointer;
  }
 
- .class-container.contrato button:hover, label:hover,  .class-container.aditivo button:hover, label:hover{
+label:hover{
     transform: scale(1.05);
     cursor: pointer;
  }
 
- .class-container.contrato button,  .class-container.aditivo button{
-  padding: 5px;
-    color: var(--color-green);
-
-    text-align: center;
-    margin-top: 5px;
-    cursor: pointer;
+ .selecionado {
+   font-weight: bold;
+   background-color: var(--color-grey);
+   color: var(--color-green);
+   /* font-weight: 900; */
  }
-
-
 
  .class-container::-webkit-scrollbar {
   width: 10px;
@@ -123,11 +103,6 @@ display: none;
 
 .class-container::-webkit-scrollbar-thumb:hover {
   background-color: var(--color-light-grey);
-}
-
-
-.class-container h3{
-margin-top: 0.5em;
 }
 
 
@@ -156,16 +131,14 @@ margin-top: 0.5em;
 }
 
 
+
+
 ul{
   display: flex;
   width: 100%;
   align-items: left;
-
 }
 
-li{
-text-align: left;
-}
 
 h4{
   color: var(--color-green);
@@ -175,13 +148,11 @@ h4{
 .lista-cotainer{
   display: flex;
   flex-direction: column;
-  align-items: left;
-  align-items: flex-start;
-  width: 100%;
+  align-items: center;
+  width: 95%;
+  margin:0;
 
 }
 
-.lista-cotainer h4{
-  padding-left: 10px;
-}
+
 `

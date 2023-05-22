@@ -1,30 +1,20 @@
-import { useContext, useEffect, useState } from "react";
+import { useContext } from "react";
 import { ContractContainer } from "./contractAnaliserStyle";
 import { BsArrowDownCircle, BsArrowUpCircle } from "react-icons/bs";
 import { AuthContext } from "../../context/AuthContext";
 import { SubmitComponents } from "../submitComponents/submitComponents";
 import { RenderCard } from "../renderCard/renderCard";
-import api from "../../services/api";
-import contratoService from '../../services/contratoService';
-import aditivoService from '../../services/aditivoService';
-import regraService from '../../services/regraService';
 
 
 export const ContractAnaliser = () => {
 
   const {
     isClose, setIsClose, isOpen, setIsOpen,
-    handleAditivoFileChange,
-    handleAditivoFileSubmit,
-    handleSubmitRules,
-    handleRulesChange,
-    handleContractSubmit,
-    handleContractChange,
-    contrato, setContrato,
-    nomeArquivo, setNomeArquivo, conteudo_base64, setConteudo_base64,
-    arquivo, setArquivo,
-    isLoadingContratos, setIsLoadingContratos,
-    rules, contratos, aditivoList, rulesList, setContratos, setAditivoList, setRulesList,
+    setContrato, setAditivo, setRegra,
+    setIdContratoRemover, setIdAditivoRemover, setIdRegraRemover,
+    idContratoSelecionado, setIdContratoSelecionado,
+    contratos, aditivos, regras,
+    descricaoRegra, setDescricaRegra,
     operadoraSelecionada
   } = useContext(AuthContext);
 
@@ -42,25 +32,31 @@ export const ContractAnaliser = () => {
 
 
   const montarArquivo = (event) => {
-    return new Promise((resolve, reject) => {
-      const file = event.target.files[0];
-      const nomeArquivo = file.name;
-      const reader = new FileReader();
-      reader.onload = (e) => {
-        const fileContent = e.target.result;
-        const base64Content = btoa(fileContent);
-        const arquivo = { nome: nomeArquivo, conteudo_base64: base64Content, tipo: 'ignorar' };
-        resolve(arquivo);
-      };
-      reader.onerror = (error) => {
-        reject(error);
-      };
-      reader.readAsBinaryString(file);
-    });
+    const file = event.target.files[0];
+    if (file) {
+      return new Promise((resolve, reject) => {
+        const nomeArquivo = file.name;
+        const reader = new FileReader();
+        reader.onload = (e) => {
+          const fileContent = e.target.result;
+          const base64Content = btoa(fileContent);
+          const arquivo = { nome: nomeArquivo, conteudo_base64: base64Content, tipo: 'ignorar' };
+          resolve(arquivo);
+        };
+        reader.onerror = (error) => {
+          reject(error);
+        };
+        reader.readAsBinaryString(file);
+      });
+    }
   };
 
-  const montarContrato = async (event) => {
+  const salvarContrato = async (event) => {
     const arquivoMontado = await montarArquivo(event);
+    if (!operadoraSelecionada) {
+      alert("Selecione uma operadora para cadastrar um contrato associado a ela")
+      return;
+    }
     if (arquivoMontado) {
       const contratoParaSalvar = {cliente: 'Cliente 1',
                   operadora: operadoraSelecionada,
@@ -70,38 +66,90 @@ export const ContractAnaliser = () => {
   };
 
 
+  const salvarAditivo = async (event) => {
+    const arquivoMontado = await montarArquivo(event);
+    if (!idContratoSelecionado) {
+      alert("Selecione um contrato para salvar um aditivo assciado a ele")
+      return
+    }
+    if (arquivoMontado) {
+      const aditivoParaSalvar = { contrato: idContratoSelecionado,
+                                  arquivo: arquivoMontado};
+      setAditivo(aditivoParaSalvar);
+    }
+  };
+
+  const salvarRegra = async (event) => {
+    event.preventDefault();
+    console.log(descricaoRegra)
+    if (!descricaoRegra) {
+      alert('A regra não pode ser vazia');
+      return;
+    }
+    if (!idContratoSelecionado) {
+      alert('Selecione um contrato para salvar uma regra associada a ele');
+      return;
+    }
+    setRegra({descricao: descricaoRegra, contrato: idContratoSelecionado});
+  };
+
+  const handleInputChangeRegra = (event) => {
+    let novaDescricao = event.target.value
+    novaDescricao = novaDescricao ? novaDescricao.trim() : '';
+    setDescricaRegra(novaDescricao);
+  }
+
+  const deletarContrato = async (contratoId) => {
+    const confirmDelete = window.confirm("Apagar o contrato junto com todos os aditivos e regras?");
+    if (confirmDelete) {
+      setIdContratoRemover(contratoId)
+    }
+  }
+
+  const deletarAditivo = async (aditivoId) => {
+    setIdAditivoRemover(aditivoId)
+  }
+
+  const deletarRegra = async (regraID) => {
+    setIdRegraRemover(regraID)
+  }
+
+  const selecionarContrato = (contratoId) => {
+    setIdContratoSelecionado(contratoId);
+  }
+
+const selecionarNada = (nada) => {
+}
+
+
   return (
     <ContractContainer>
       {isOpen && (
         <div className={`overlay-container ${isClose ? "closing" : ""}`}>
           <div className="overlay-class-container">
             <SubmitComponents
-              handleSubmit={handleContractSubmit}
-              handleChange={handleContractChange}
-              handleFileChange={montarContrato}
+              handleInputChange={salvarContrato}
               className="contrato"
               title= 'Contratos'
             >
-              <RenderCard list={contratos}/>
+              <RenderCard list={contratos} handleDelete={deletarContrato} selecionarItem={selecionarContrato}/>
             </SubmitComponents>
 
             <SubmitComponents
-              handleSubmit={handleAditivoFileSubmit}
-              handleChange={handleAditivoFileChange}
+              handleInputChange={salvarAditivo}
               className="aditivo"
               title= 'Aditivos'
             >
-               <RenderCard list={aditivoList}/>
+               <RenderCard list={aditivos} handleDelete={deletarAditivo} selecionarItem={selecionarNada}/>
             </SubmitComponents>
 
             <SubmitComponents
-              handleSubmit={handleSubmitRules}
-              handleChange={handleRulesChange}
-              className="regras"
-              rule={rules}
+              handleSubmit={salvarRegra}
+              handleInputChange={handleInputChangeRegra}
+              className="regra"
               title= 'Regras'
             >
-              <RenderCard list={rulesList}/>
+              <RenderCard list={regras}  handleDelete={deletarRegra} selecionarItem={selecionarNada}/>
             </SubmitComponents>
 
           </div>

@@ -1,4 +1,3 @@
-import axios from 'axios';
 import genericService from './genericService';
 
 const contratoService = {

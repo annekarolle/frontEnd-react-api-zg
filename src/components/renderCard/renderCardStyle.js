@@ -1,45 +1,47 @@
 import { styled } from "styled-components";
 
+
+export const ContainerListRender = styled.div`
+width: 100%;
+align-items: center;
+display: flex;
+justify-content: center;
+`
+
 export const ListStyle = styled.ul`
 display: flex;
-width: 90%;
 list-style: none;
-align-items: left;
+align-items: center;
 text-align: left;
 flex-direction: column;
+padding: 0;
 
 li{
     align-items: left;
     text-align: left;
     display: flex;
     justify-content: space-between;
-    width: 90%;
-    height: 30%;
-    margin-top: 5px;
+    width: 100%;
     border-bottom: 1px solid black;
-
-}
-
-p{
-    font-size: small;
-    display: flex;
     align-items: center;
-
 }
+
+p {
+    font-size: 13px;
+    text-align:left;
+}
+
+
 
 .botao-apagar {
-  padding: 1px;
-  width: 100%;
-  height: 100%;
+  color: var(--color-white);
+  cursor: pointer;
+  font-size: 12px;
+  margin-top: 5px;
 }
 
- `
+button:hover{
+  color: var(--color-green)
+}
 
- export const ContainerListRender = styled.div`
-
- width: 100%;
- align-items: left;
- display: flex;
- margin-top: 1em;
- padding-left: 10px;
  `

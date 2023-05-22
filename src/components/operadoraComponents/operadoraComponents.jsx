@@ -4,30 +4,22 @@ import { LoadingComponent } from "../loadingComponents/loadingComponents";
 import {AiFillPlusCircle} from "react-icons/ai"
 import {BsFillTrash3Fill} from "react-icons/bs"
 import { Container } from "./operadoraStyle"
-import { useContext, useEffect, useState } from "react";
-import api from "../../services/api";
+import { useContext, useEffect, useState, useCallback } from "react";
 import operadoraService from '../../services/operadoraService';
 
 
 export const OperatorComponent = () => {
 
     // const {operadoraList} = useContext(AuthContext);
-    const { isLoadingContratos, setIsLoadingContratos,contratos, setContratos ,setOperadoraSelecionada, operadoraSelecionada, setOperadoras, operadoras, isLoadingOperadoras, setIsLoadingOperadoras, isClose, setIsClose, isOpen, setIsOpen} = useContext(AuthContext)
-    const [isFormOpen, setIsFormOpen] = useState(false);
+    const {setOperadoraSelecionada, operadoraSelecionada, setOperadoras, operadoras, isLoadingOperadoras, setIsLoadingOperadoras, setIsClose, setIsOpen} = useContext(AuthContext)
     const [nomeOperadora, setNomeOperadora] = useState('');
     const [erro, setErro] = useState('');
 
-    useEffect(() => {
-      fetchOperadoras();
-    }, []);
 
-    useEffect(() => {
-      if (erro) {
-        alert(erro);
-      }
-    }, [erro]);
 
-    const fetchOperadoras = async () => {
+
+
+    const fetchOperadoras = useCallback (async () => {
         try {
           const data = await operadoraService.getAll();
           setOperadoras(data);
@@ -35,7 +27,8 @@ export const OperatorComponent = () => {
         } catch (error) {
           console.error('Erro ao buscar operadoras:', error);
         }
-    };
+    }, [setOperadoras, setIsLoadingOperadoras]);
+
 
     const handleDeleteOperadora = async (operadoraId) => {
       const confirmDelete = window.confirm("Apagar a operadora junto com todos os documentos e regras?");
@@ -43,15 +36,16 @@ export const OperatorComponent = () => {
         await operadoraService.delete(operadoraId);
         fetchOperadoras();
         if (operadoraId === operadoraSelecionada) {
-          setIsClose(true)
+          setIsClose(true);
+          setOperadoraSelecionada(null);
         }
       }
     };
 
     const handleOperadoraClick = (operadoraId) => {
        setOperadoraSelecionada(operadoraId);
-       setIsClose(false)
-       setIsOpen(true)
+       setIsClose(false);
+       setIsOpen(true);
      };
 
      const handleOperadoraSubmit = async (event) => {
@@ -86,6 +80,15 @@ export const OperatorComponent = () => {
       setNomeOperadora(event.target.value);
     };
 
+    useEffect(() => {
+      if (erro) {
+        alert(erro);
+      }
+    }, [erro]);
+    useEffect(() => {
+      fetchOperadoras();
+    }, [fetchOperadoras]);
+    
     return (
         <>
         <Container>
@@ -105,7 +108,7 @@ export const OperatorComponent = () => {
           <ul>
            {operadoras.map((operadora) => (
              <li key={operadora.nome}
-             className={`operadora-item ${operadoraSelecionada == operadora.id ? 'selecionado' : 'nao-selecionado'}`}
+             className={`operadora-item ${operadoraSelecionada === operadora.id ? 'selecionado' : 'nao-selecionado'}`}
              >
               <div className="operadora-button"
                onClick={() => { handleOperadoraClick(operadora.id); }}>
